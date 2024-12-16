@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Craftwork+Grotesk:wght@400&display=swap');
+
+@layer base {
+  html {
+    font-size: 16px;
+  }
+
+  @media (max-width: 768px) {
+    html {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    html {
+      font-size: 12px;
+    }
+  }
+
+  /* Стиль для заголовков h1-h6 */
+  h1 {
+    @apply font-craftwork text-96 font-900 leading-105 tracking-[-0.02em];
+  }
+  h2 {
+    @apply font-craftwork text-64 font-600 leading-110 tracking-[-0.01em];
+  }
+  h3 {
+    @apply font-craftwork text-48 font-500 leading-120 tracking-[0em];
+  }
+  h4 {
+    @apply font-roboto text-32 font-100 leading-120 tracking-[0em] antialiased opacity-85;
+  }
+  h5 {
+    @apply text-lg font-craftwork font-medium leading-loose text-gray-600;
+  }
+  h6 {
+    @apply text-base font-craftwork font-medium leading-relaxed text-gray-500;
+  }
+
+  /* Стиль для абзацев p */
+  p {
+    @apply text-base font-roboto leading-relaxed text-gray-700;
+  }
+}
+
+@layer components {
+  /* Универсальные стили для боксов с отступами */
+  .box {
+    @apply bg-gray-50 p-6 rounded-md shadow-md;
+  }
+
+  /* Стили для кнопок (пример компонента) */
+  .btn-primary {
+    @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
+  }
+
+  /* Стили для карточек */
+  .card {
+    @apply bg-white border rounded-lg shadow-md p-6;
+  }
+}
+
+@layer utilities {
+  /* Сеточные утилиты, если нужно */
+  .grid-container {
+    @apply grid grid-cols-12 gap-6 px-4 lg:px-8;
+  }
+  .grid-item {
+    @apply col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3;
+  }
+
+  /* Стили для контейнеров */
+  .container-custom {
+    @apply max-w-screen-xl mx-auto px-4 py-8;
+  }
+}
+
+[data-theme='designer'] {
+  @apply bg-designer-background text-designer-text;
+}
+
+[data-theme='developer'] {
+  @apply bg-developer-background text-developer-text;
+}
+
+.cursor {
+  z-index: 50;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 0.15s ease,
+    filter 0.2s ease;
+  pointer-events: none; /* Чтобы курсор не взаимодействовал с элементами */
+}
