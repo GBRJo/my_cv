@@ -11,17 +11,16 @@ export default {
       colors: {
         designer: {
           background: '#F3F3F3',
-          text: '#121212',
+          text: '#28282C',
         },
         developer: {
-          background: '#121212',
+          background: '#28282C',
           text: '#F3F3F3',
         },
-        bl: '#121212',
+        bl: '#28282C',
         W: '#F3F3F3',
-        gr1: '#D9D9D9',
-        gr2: '#e5e5ea',
-        yl: '#E3FD16',
+        gr: '#606060',
+        orj: '#FC9E70',
       },
       fontSize: {
         96: '6rem', // 96px
@@ -49,11 +48,12 @@ export default {
         '0.05': '0.05em',
       },
       fontWeight: {
-        900: '900', // Heavy
-        600: '600', // Bold
-        500: '500', // Medium
-        400: '400', // Regular
-        300: '300', // Light
+        900: '900',
+        700: '700',
+        600: '600',
+        500: '500',
+        400: '400',
+        300: '300',
         100: '100',
       },
     },

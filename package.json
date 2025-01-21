@@ -21,6 +21,7 @@
     "@electric-sql/pglite": "^0.2.13",
     "@hookform/resolvers": "^3.9.1",
     "@t3-oss/env-nextjs": "^0.11.1",
+    "clsx": "^2.1.1",
     "gsap": "^3.12.5",
     "next": "^15.0.3",
     "next-intl": "^3.25.1",
