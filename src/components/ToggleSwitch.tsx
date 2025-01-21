@@ -33,7 +33,7 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ leftLabel, rightLabe
           }`}
         >
           <Hoverable>
-            <span className="text-xl font-bold">&</span>
+            <span className="magnet text-xl font-bold">&</span>
           </Hoverable>
         </span>
       </button>

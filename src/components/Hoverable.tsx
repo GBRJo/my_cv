@@ -38,8 +38,8 @@ const Hoverable: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     gsap.to(elementRef.current, {
       x: 0,
       y: 0,
-      duration: 1.1,
-      ease: 'elastic.out(1, 0.3)',
+      duration: 1,
+      ease: 'elastic.out(2, 0.3)',
     });
   };
 

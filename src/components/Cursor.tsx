@@ -7,10 +7,12 @@ const Cursor: React.FC = () => {
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const previousPosition = useRef({ x: 0, y: 0 });
   const idleTimeout = useRef<NodeJS.Timeout | null>(null);
+  const isHoveringMagnet = useRef(false);
+  const magnetElement = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const resetCursor = () => {
-      if (cursorRef.current) {
+      if (cursorRef.current && !isHoveringMagnet.current) {
         gsap.to(cursorRef.current, {
           scaleX: 1,
           scaleY: 1,
@@ -37,42 +39,53 @@ const Cursor: React.FC = () => {
         // Обновляем предыдущую позицию
         previousPosition.current = { x, y };
 
-        // Очищаем таймер, если курсор продолжает двигаться
+        // Проверяем, находится ли курсор над элементом с классом "magnet"
+        const hoveredElement = document.elementFromPoint(x, y);
+        isHoveringMagnet.current = hoveredElement?.classList.contains('magnet') ?? false;
+
+        // Если курсор над элементом "magnet", увеличиваем его и привязываем
+        const scaleX = isHoveringMagnet.current ? 2 : 1 + Math.abs(Math.cos(angle)) * 0.9;
+        const scaleY = isHoveringMagnet.current ? 2 : 1 + Math.abs(Math.sin(angle)) * 0.7;
+
+        gsap.set(cursorRef.current, {
+          scaleX,
+          scaleY,
+        });
+
+        if (isHoveringMagnet.current && magnetElement.current) {
+          const magnetRect = magnetElement.current.getBoundingClientRect();
+          const magnetCenterX = magnetRect.left + magnetRect.width / 2;
+          const magnetCenterY = magnetRect.top + magnetRect.height / 2;
+
+          // Притягиваем курсор к центру элемента
+          gsap.to(cursorRef.current, {
+            x: magnetCenterX,
+            y: magnetCenterY,
+            duration: 0.3,
+            ease: 'power3.out',
+          });
+        } else {
+          // Если курсор не на магните, просто анимируем его позицию
+          gsap.to(cursorRef.current, {
+            x,
+            y,
+            duration: 0.1,
+            ease: 'power2.out',
+          });
+        }
+
+        // Размытие при движении, если курсор не на "magnet"
+        const blur = isHoveringMagnet.current ? 0 : Math.min(Math.sqrt(deltaX ** 2 + deltaY ** 2) * 0.1, 15);
+        gsap.set(cursorRef.current.style, {
+          filter: `blur(${blur}px)`,
+        });
+
+        // Сбрасываем таймер на остановку
         if (idleTimeout.current) {
           clearTimeout(idleTimeout.current);
         }
 
-        // Анимация позиции
-        gsap.to(cursorRef.current, {
-          x,
-          y,
-          duration: 0.1,
-          ease: 'power2.out',
-        });
-
-        // Анимация формы: scaleX и scaleY зависят только от угла движения
-        const scaleX = 1 + Math.abs(Math.cos(angle)) * 0.7; // Сплющивание по горизонтали
-        const scaleY = 1 + Math.abs(Math.sin(angle)) * 0.5; // Сплющивание по вертикали
-
-        gsap.to(cursorRef.current, {
-          scaleX,
-          scaleY,
-          duration: 0.5,
-          ease: 'power2.out',
-        });
-
-        // Размытие при движении
-        const blur = Math.min(Math.sqrt(deltaX ** 2 + deltaY ** 2) * 0.1, 15); // Максимальное размытие 15px
-        cursorRef.current.style.filter = `blur(${blur}px)`;
-
-        // Уменьшаем размытие плавно при замедлении
-        gsap.to(cursorRef.current.style, {
-          filter: 'blur(0px)',
-          duration: 0.3,
-          ease: 'power3.out',
-        });
-
-        // Запускаем таймер сброса, если курсор останавливается
+        // Запускаем таймер сброса, если курсор не на элементе "magnet"
         idleTimeout.current = setTimeout(resetCursor, 200); // 200 мс простоя
       }
     };
