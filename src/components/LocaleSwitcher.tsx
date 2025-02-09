@@ -16,17 +16,19 @@ export const LocaleSwitcher = () => {
   };
 
   return (
-    <select
-      defaultValue={locale}
-      onChange={handleChange}
-      className="border border-gray-300 font-medium focus:outline-none focus-visible:ring"
-      aria-label="lang-switcher"
-    >
-      {routing.locales.map(elt => (
-        <option key={elt} value={elt}>
-          {elt.toUpperCase()}
-        </option>
-      ))}
-    </select>
+    <h4>
+      <select
+        defaultValue={locale}
+        onChange={handleChange}
+        className="focus:bg-wt border-none bg-transparent"
+        aria-label="lang-switcher"
+      >
+        {routing.locales.map(elt => (
+          <option key={elt} value={elt}>
+            {elt.toUpperCase()}
+          </option>
+        ))}
+      </select>
+    </h4>
   );
 };

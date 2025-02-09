@@ -1,4 +1,3 @@
-import Cursor from '@/components/Cursor';
 import { Header } from '@/components/Header';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { routing } from '@/libs/i18nNavigation';
@@ -30,7 +29,6 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider>
             <Header />
-            <Cursor />
             {children}
           </ThemeProvider>
         </NextIntlClientProvider>

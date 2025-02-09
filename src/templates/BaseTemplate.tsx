@@ -1,7 +1,9 @@
 import { TagButton } from '@/components/buttons/TagButton';
+import { EducationList } from '@/components/EducationList';
 import { ExperienceList } from '@/components/ExperienceList';
 import { Tag } from '@/components/Tag';
 import { ToggleSwitch } from '@/components/ToggleSwitch';
+import { additionalEducation, primaryEducation } from '@/data/educationData';
 import Image from 'next/image';
 
 type TagButtonProps = {
@@ -47,11 +49,7 @@ export const BaseTemplate = (props: {
       </div>
       <div className="container-custom flex flex-col gap-4">
         <h3>Portfolios</h3>
-        <h6 className="opacity-75">
-          Welcome to our boutique of elegance,
-          where unique designer vases
-        </h6>
-        <div className="flex flex-wrap gap-3">
+        <div className="mt-2 flex flex-wrap gap-3">
           {tagButtons.map(button => (
             <TagButton
               key={button.label}
@@ -95,10 +93,10 @@ export const BaseTemplate = (props: {
           </p>
         )}
       </div>
-      <div className="container-custom flex flex-col gap-2">
+      <div className="container-custom flex flex-col gap-6">
         <h2>Skills</h2>
         {skills.map(skillBlock => (
-          <div key={skillBlock.id} className="container-custom flex flex-col gap-2">
+          <div key={skillBlock.id} className="flex flex-col gap-2">
             <h4>{skillBlock.skillsHeader}</h4>
             <div className="flex flex-wrap gap-2">
               {skillBlock.tags.map(tag => (
@@ -111,6 +109,13 @@ export const BaseTemplate = (props: {
       <div className="container-custom flex flex-col gap-2">
         <h2 className="mb-4">Experience</h2>
         <ExperienceList />
+      </div>
+      <div className="container-custom flex flex-col gap-2">
+        <h2 className="mb-4">Education</h2>
+        <h4 className="mb-2">Primary Education</h4>
+        <EducationList educationData={primaryEducation} />
+        <h4 className="my-2">Certification & Additional Education</h4>
+        <EducationList educationData={additionalEducation} />
       </div>
       {children}
     </div>
